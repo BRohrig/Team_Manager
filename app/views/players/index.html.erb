@@ -1,0 +1,8 @@
+<h2>Players</h2>
+<% @players.each do |player| %>
+  <h3><%= player.name %></h3>
+  <h4>Salary: <%= player.salary %></h4>
+  <h4>US Citizen? <%= player.citizen %></h4>
+  <h4>Eligible for Trade? <%= player.trade_eligible %></h4>
+  <h4>Contract Length (Months): <%= player.contract_length_months %></h4><br/>
+<% end %>

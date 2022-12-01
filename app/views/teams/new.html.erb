@@ -1,0 +1,16 @@
+<h2>Create New Team</h2>
+
+<form action="/teams" method="post">
+  <input type="hidden" name="authenticity_token" value="<% form_authenticity_token %>">
+  <p>Team Name:</p>
+  <input type='text' name='team[name]'/><br/>
+  <p>Team City:</p>
+  <input type='text' name='team[city]'/><br/>
+  <p>Team Owner:</p>
+  <input type='text' name='team[owner]'/><br/>
+  <p>Did Team Win Championship Last Year? (true/false)</p>
+  <input type='boolean' name='team[title_holder]'/><br/>
+  <p>How Many Titles Has Team Won?</p>
+  <input type='integer' name='team[titles_won]'/><br/>
+  <input type='submit'/>
+</form>

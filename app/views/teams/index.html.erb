@@ -1,0 +1,6 @@
+<h2>Teams</h2>
+
+<% @teams.created_order.each do |team| %>
+  <h3><%= team.name %></h3>
+  <h4>Entry Created: <%= team.created_at %></h4><br/>
+<% end %>
