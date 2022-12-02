@@ -1,4 +1,5 @@
-<a href="/players">Player Index</a><a href="/teams">Team Index</a>
+<a href="/players">Player Index</a>
+<a href="/teams">Team Index</a>
 
 <h2><%= @team.name %></h2>
 <p>City: <%= @team.city %></p>
@@ -6,3 +7,4 @@
 <p>Does Team Hold Title? <%= @team.title_holder %></p>
 <p>Titles Won: <%= @team.titles_won %></p>
 <p>Players On Roster: <%= @player_count %></p>
+<a href="/teams/<%= @team.id %>/players">Player List</a>

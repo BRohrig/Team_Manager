@@ -47,7 +47,7 @@ RSpec.describe 'the teams index page' do
   it 'displays the number of players associated with a team on the show page' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
-    # binding.pry
+    
     visit "teams/#{sounders.id}"
 
     expect(page).to have_content("Players On Roster: 1")
@@ -74,6 +74,28 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_link 'Team Index', href: "/teams"
   end
 
+  it 'has a link on the team page to the that teams players' do
+    sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
+    raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
+    roldan = sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
 
+    visit "/teams/#{sounders.id}"
+    expect(page).to have_link 'Player List', href: "/teams/#{sounders.id}/players"
+  end
+
+  it 'has a link on the team page that takes me to a page to create a new team' do
+    visit "/teams"
+
+    expect(page).to have_link 'Add New Team', href: "/teams/new"
+  end
+
+  it 'has a form to fill out to create a new team' do 
+    visit "/teams/new"
+
+    expect(page).to have_content("Enter a New Team Name:")
+    
+
+
+  end
 
 end
