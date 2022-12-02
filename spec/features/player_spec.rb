@@ -34,4 +34,19 @@ RSpec.describe 'the players pages' do
     expect(page).to_not have_content(@roldan.salary)
   end
 
+  it 'has a link to the player index' do
+    visit "/players"
+    expect(page).to have_link 'Player Index', href: "/players"
+
+    visit "/players/#{@raul.id}"
+    expect(page).to have_link 'Player Index', href: "/players"
+  end
+
+  it 'has a link to the team index' do
+    visit "/players"
+    expect(page).to have_link 'Team Index', href: "/teams"
+
+    visit "/players/#{@raul.id}"
+    expect(page).to have_link 'Team Index', href: "/teams"
+  end
 end
