@@ -1,0 +1,15 @@
+<form action="/teams/<%= @team.id %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="PATCH" />
+  <p>Update Team Name:</p>
+  <input id="a" type='text' name='team[name]' value="<%= @team.name %>"/><br/>
+  <p>Update Team City:</p>
+  <input id="b" type='text' name='team[city]' value="<%= @team.city %>"/><br/>
+  <p>Update Team Owner:</p>
+  <input id="c" type='text' name='team[owner]' value="<%= @team.owner %>"/><br/>
+  <p>Update Team Title Possession (T/F):</p>
+  <input id="d" type='boolean' name='team[title_holder]' value='<%= @team.title_holder %>'/><br/>
+  <p>Update Number of Titles Won:</p>
+  <input id="e" type='integer' name='team[titles_won]' value='<%= @team.titles_won %>'/><br/>
+  <input type='submit' value="Submit"/>
+</form>

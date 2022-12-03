@@ -93,8 +93,52 @@ RSpec.describe 'the teams index page' do
     visit "/teams/new"
 
     expect(page).to have_content("Enter a New Team Name:")
+    fill_in "1", with: "Colorado Rapids"
+    fill_in "2", with: "Denver"
+    fill_in "3", with: "guy"
+    fill_in "4", with: false
+    fill_in "5", with: 0
     
+    click_on "Create Team"
+    
+    expect(page).to have_content("Colorado Rapids")
+    expect(page).to have_content(Time.now.utc)
+  end
 
+  it 'has a link to update the team on the team show page' do
+    sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
+    visit "/teams/#{sounders.id}"
+
+    expect(page).to have_link("Update Team")
+    click_on "Update Team"
+
+    expect(current_path).to eq("/teams/#{sounders.id}/edit")
+    expect(page).to have_content "Update Team Name:"
+    expect(page).to have_content "Update Team City:"
+    expect(page).to have_content "Update Team Owner:"
+    expect(page).to have_content "Update Team Title Possession (T/F):"
+    expect(page).to have_content "Update Number of Titles Won:"
+    expect(page).to have_button "Submit"
+
+    fill_in "a", with: "Vancouver Whitecaps"
+    fill_in "b", with: "Vancouver"
+    fill_in "c", with: "not AH"
+    fill_in "d", with: false
+    fill_in "e", with: 0
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/teams/#{sounders.id}")
+    expect(page).to have_content "Vancouver Whitecaps"
+    expect(page).to have_content "City: Vancouver"
+    expect(page).to have_content "Owner: not AH"
+    expect(page).to have_content "Does Team Hold Title? false"
+    expect(page).to have_content "Titles Won: 0"
+    expect(page).to_not have_content "Sounders FC"
+    expect(page).to_not have_content "City: Seattle"
+    expect(page).to_not have_content "Owner: Adrian Hanauer"
+    expect(page).to_not have_content "Titles Won: 2"
+    
 
   end
 
