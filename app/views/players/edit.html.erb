@@ -1,0 +1,15 @@
+<form action="/players/<%= @player.id %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="PATCH" />
+  <p>Update Player Name:</p>
+  <input id="f" type='text' name='player[name]' value="<%= @player.name %>"/><br/>
+  <p>Update Player Salary:</p>
+  <input id="g" type='integer' name='player[salary]' value="<%= @player.salary %>"/><br/>
+  <p>Update Player Citizenship (T/F):</p>
+  <input id="h" type='boolean' name='player[citizen]' value="<%= @player.citizen %>"/><br/>
+  <p>Update Player Trade Eligibility (T/F):</p>
+  <input id="i" type='boolean' name='player[trade_eligible]' value='<%= @player.trade_eligible %>'/><br/>
+  <p>Update Player Contract Length:</p>
+  <input id="j" type='integer' name='player[contract_length_months]' value='<%= @player.contract_length_months %>'/><br/>
+  <input type='submit' value="Submit"/>
+</form>

@@ -1,0 +1,18 @@
+<a href="/players">Player Index</a>
+<a href="/teams">Team Index</a>
+
+<form action="/teams/<%= @team.id %>/players" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>New Player Name:</p>
+  <input id="6" type="text" name="player[name]" /><br/>
+  <p>New Player Salary:</p>
+  <input id="7" type="integer" name="player[salary]" /><br/>
+  <p>New Player Citizen? (T/F)</p>
+  <input id="8" type="boolean" name="player[citizen]" /><br/>
+  <p>New Player Trade Eligible? (T/F)</p>
+  <input id="9" type="boolean" name="player[trade_eligible]" /><br/>
+  <p>New Player Contract Length in Months:</p>
+  <input id="10" type="integer" name="player[contract_length_months]" /><br/>
+  <input type="hidden" name="player[team_id]" value="<%= @team.id %>">
+  <input type='submit' value="Create Player"/>
+</form>

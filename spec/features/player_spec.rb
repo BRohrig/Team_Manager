@@ -49,4 +49,41 @@ RSpec.describe 'the players pages' do
     visit "/players/#{@raul.id}"
     expect(page).to have_link 'Team Index', href: "/teams"
   end
+
+  it 'has a link to an update page which allows me to modify the player' do
+    visit "/players/#{@raul.id}"
+    expect(page).to have_link 'Update Player', href: "/players/#{@raul.id}/edit"
+
+    click_link 'Update Player'
+    expect(current_path).to eq("/players/#{@raul.id}/edit")
+    expect(page).to have_content("Update Player Name:")
+    expect(page).to have_content("Update Player Salary:")
+    expect(page).to have_content("Update Player Citizenship (T/F):")
+    expect(page).to have_content("Update Player Trade Eligibility (T/F):")
+    expect(page).to have_content("Update Player Contract Length:")
+    expect(page).to have_button("Submit")
+
+    fill_in "f", with: "Joao Paulo"
+    fill_in "g", with: 22223
+    fill_in "h", with: true
+    fill_in "i", with: true
+    fill_in "j", with: 3
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/players/#{@raul.id}")
+    expect(page).to have_content("Joao Paulo")
+    expect(page).to have_content("Salary: $22223")
+    expect(page).to have_content("US Citizen? true")
+    expect(page).to have_content("Eligible for Trade? true")
+    expect(page).to have_content("Contract Length in Months: 3")
+    expect(page).to_not have_content("Raul Ruidiaz")
+    expect(page).to_not have_content("Salary: 3000000")
+    expect(page).to_not have_content("US Citizen: false")
+    expect(page).to_not have_content("Eligible for Trade? false")
+    expect(page).to_not have_content("Contract Length in Months: 39")
+
+
+
+  end
 end
