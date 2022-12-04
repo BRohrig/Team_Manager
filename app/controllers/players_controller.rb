@@ -27,4 +27,10 @@ class PlayersController < ApplicationController
   def eligible
     @players = Player.where(trade_eligible: true)
   end
+
+  def destroy
+    @player = Player.find(params[:id])
+    @player.destroy
+    redirect_to "/players"
+  end
 end
