@@ -1,6 +1,7 @@
 <a href="/players">Player Index</a>
 <a href="/teams">Team Index</a>
 
+<a href="/teams/<%= @team.id %>/sort">Sort Players By Name</a>
 <a href="/teams/<%= @team.id %>/players/new">Create Player</a>
 <h1><%= @team.name %> Players:</h1>
 <% @players.each do |player| %>

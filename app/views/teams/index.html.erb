@@ -8,4 +8,5 @@
 <% @teams.created_order.each do |team| %>
   <h3><%= team.name %></h3>
   <h4>Entry Created: <%= team.created_at %></h4><br/>
+  <a href="/teams/<%= team.id %>/edit">Edit <%= team.name %></a>
 <% end %>

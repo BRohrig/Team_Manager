@@ -20,7 +20,14 @@ class TeamPlayersController < ApplicationController
     player.save
 
     redirect_to "/teams/#{player.team_id}/players"
+  end
 
+  def name_sort
+    @team = Team.find(params[:id])
+    extracted_team_id = @team.id
+    @players = Player.sort_name
+
+    render 'index'
   end
 
 end

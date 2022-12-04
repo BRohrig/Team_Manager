@@ -46,7 +46,28 @@ RSpec.describe 'the index of players to teams' do
     expect(page).to have_content("US Citizen? false")
     expect(page).to have_content("Eligible for Trade? false")
     expect(page).to have_content("Contract Length (Months): 23")
+  end
+
+  it 'has link on the teams players index page to sort the players alphabetically by name' do
+    raul = @sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
+    roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
+
+    visit "/teams/#{@sounders.id}/players"
+    expect(raul.name).to appear_before(roldan.name)
+    expect(page).to have_link "Sort Players By Name"
+    click_link "Sort Players By Name"
+    # save_and_open_page
     
+    expect(roldan.name).to appear_before("Salary: #{roldan.salary}")
+    expect("Salary: #{roldan.salary}").to appear_before("US Citizen? #{roldan.citizen}")
+    expect("US Citizen? #{roldan.citizen}").to appear_before("Eligible for Trade? #{roldan.trade_eligible}")
+    expect("Eligible for Trade? #{roldan.trade_eligible}").to appear_before("Contract Length (Months): #{roldan.contract_length_months}")
+    expect("Contract Length (Months): #{roldan.contract_length_months}").to appear_before(raul.name)
+    expect(raul.name).to appear_before("Salary: #{raul.salary}")
+    expect("Salary: #{raul.salary}").to appear_before("US Citizen? #{raul.citizen}")
+    expect("US Citizen? #{raul.citizen}").to appear_before("Eligible for Trade? #{raul.trade_eligible}")
+    expect("Eligible for Trade? #{raul.trade_eligible}").to appear_before("Contract Length (Months): #{raul.contract_length_months}")
+
 
   end
 

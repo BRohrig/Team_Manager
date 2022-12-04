@@ -22,8 +22,9 @@ class PlayersController < ApplicationController
     })
     player.save
     redirect_to "/players/#{player.id}"
+  end
 
-
-
+  def eligible
+    @players = Player.where(trade_eligible: true)
   end
 end
