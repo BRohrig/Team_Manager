@@ -1,3 +1,6 @@
+<a href="/players">Player Index</a>
+<a href="/teams">Team Index</a>
+
 <form action="/teams/<%= @team.id %>" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type="hidden" name="_method" value="PATCH" />

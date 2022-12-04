@@ -138,8 +138,22 @@ RSpec.describe 'the teams index page' do
     expect(page).to_not have_content "City: Seattle"
     expect(page).to_not have_content "Owner: Adrian Hanauer"
     expect(page).to_not have_content "Titles Won: 2"
-    
+  end
 
+  it 'has links to each teams edit page on the index page' do
+    sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
+    rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
+
+    visit "/teams"
+
+    expect(page).to have_link("Edit Sounders FC")
+    expect(page).to have_link("Edit Real Salt Lake")
+    click_link "Edit Sounders FC"
+    expect(current_path).to eq("/teams/#{sounders.id}/edit")
+    click_link "Team Index"
+    expect(current_path).to eq("/teams")
+    click_link "Edit Real Salt Lake"
+    expect(current_path).to eq("/teams/#{rsl.id}/edit")
   end
 
 end

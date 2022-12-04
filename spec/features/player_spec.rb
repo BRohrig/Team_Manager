@@ -82,8 +82,29 @@ RSpec.describe 'the players pages' do
     expect(page).to_not have_content("US Citizen: false")
     expect(page).to_not have_content("Eligible for Trade? false")
     expect(page).to_not have_content("Contract Length in Months: 39")
+  end
 
+  it 'has a link to only display players who are eligible for trade' do
+    rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
+    jimmy = rsl.players.create!(name: "Jimmy Jim", salary: 20, citizen: true, trade_eligible: true, contract_length_months: 14)
+    bob = rsl.players.create!(name: "bobby bob", salary: 42, citizen: false, trade_eligible: false, contract_length_months: 4)
 
-
+    visit "/players"
+    expect(page).to have_link "Trade Eligible Players", href: "/players/eligible"
+    click_link "Trade Eligible Players"
+  
+    expect(page).to have_content("Players Eligible for Trade:")
+    expect(page).to have_content(@roldan.name)
+    expect(page).to have_content("Team ID: #{@sounders.id}")
+    expect(page).to have_content("Salary: $#{@roldan.salary}")
+    expect(page).to have_content("US Citizen? #{@roldan.citizen}")
+    expect(page).to have_content("Trade Eligible? #{@roldan.trade_eligible}")
+    expect(page).to have_content("Contract Length in Months: #{@roldan.contract_length_months}")
+    expect(page).to have_content(jimmy.name)
+    expect(page).to have_content("Team ID: #{rsl.id}")
+    expect(page).to have_content("Salary: $#{jimmy.salary}")
+    expect(page).to have_content("US Citizen? #{jimmy.citizen}")
+    expect(page).to have_content("Trade Eligible? #{jimmy.trade_eligible}")
+    expect(page).to have_content("Contract Length in Months: #{jimmy.contract_length_months}")
   end
 end
