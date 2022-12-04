@@ -156,4 +156,21 @@ RSpec.describe 'the teams index page' do
     expect(current_path).to eq("/teams/#{rsl.id}/edit")
   end
 
+  it 'has a delete button on the team show page that deletes it and all players associated' do
+    sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
+    raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
+    roldan = sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
+    visit "/teams/#{sounders.id}"
+
+    expect(page).to have_link("Delete #{sounders.name}")
+    click_link "Delete #{sounders.name}"
+
+    expect(current_path).to eq("/teams")
+    expect(page).to_not have_content("#{sounders.name}")
+
+    visit "/players"
+    expect(page).to_not have_content("#{raul.name}")
+    expect(page).to_not have_content("#{roldan.name}")
+  end
+
 end

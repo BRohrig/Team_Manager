@@ -67,9 +67,36 @@ RSpec.describe 'the index of players to teams' do
     expect("Salary: #{raul.salary}").to appear_before("US Citizen? #{raul.citizen}")
     expect("US Citizen? #{raul.citizen}").to appear_before("Eligible for Trade? #{raul.trade_eligible}")
     expect("Eligible for Trade? #{raul.trade_eligible}").to appear_before("Contract Length (Months): #{raul.contract_length_months}")
+  end
+
+  it 'has a link to edit the player' do
+    raul = @sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
+    roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
+    rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
+    jimmy = rsl.players.create!(name: "Jimmy Jim", salary: 20, citizen: true, trade_eligible: true, contract_length_months: 14)
+
+    visit "/teams/#{@sounders.id}/players"
+    expect(page).to have_link("Edit Raul Ruidiaz")
+    expect(page).to have_link("Edit Cristian Roldan")
+    
+    click_link "Edit Raul Ruidiaz"
+    expect(current_path).to eq("/players/#{raul.id}/edit")
+    click_link "Player Index"
+    expect(current_path).to eq("/players")
+    
+    visit "/teams/#{rsl.id}/players"
+    expect(page).to have_link("Edit Jimmy Jim")
+    click_link "Edit Jimmy Jim"
+    expect(current_path).to eq("/players/#{jimmy.id}/edit")
+  end
+
+  it 'has a form on the index page that allows a user to find players who make more than an input salary' do
+    raul = @sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
+    roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
+
+    visit "/teams/#{@sounders.id}/players"
 
 
   end
-
 
 end

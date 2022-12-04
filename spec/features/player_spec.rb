@@ -107,4 +107,38 @@ RSpec.describe 'the players pages' do
     expect(page).to have_content("Trade Eligible? #{jimmy.trade_eligible}")
     expect(page).to have_content("Contract Length in Months: #{jimmy.contract_length_months}")
   end
+
+  it 'has a link to edit the player' do
+    rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
+    jimmy = rsl.players.create!(name: "Jimmy Jim", salary: 20, citizen: true, trade_eligible: true, contract_length_months: 14)
+
+    visit "/players"
+    expect(page).to have_link("Edit Raul Ruidiaz")
+    expect(page).to have_link("Edit Cristian Roldan")
+    expect(page).to have_link("Edit Jimmy Jim")
+
+    click_link "Edit Raul Ruidiaz"
+    expect(current_path).to eq("/players/#{@raul.id}/edit")
+    click_link "Player Index"
+    expect(current_path).to eq("/players")
+    click_link "Edit Jimmy Jim"
+    expect(current_path).to eq("/players/#{jimmy.id}/edit")
+  end
+
+  it 'has a link to delete a player on that players show page' do
+    visit "/players/#{@roldan.id}"
+    expect(page).to have_link("Delete Cristian Roldan")
+
+    click_link("Delete Cristian Roldan")
+    expect(current_path).to eq("/players")
+    expect(page).to have_content("Raul Ruidiaz")
+    expect(page).to_not have_content("Cristian Roldan")
+    visit "/players/#{@raul.id}"
+    expect(page).to have_content("Raul Ruidiaz")
+    expect(page).to have_link("Delete Raul Ruidiaz")
+    click_link("Delete Raul Ruidiaz")
+    expect(current_path).to eq("/players")
+    expect(page).to_not have_content("Raul Ruidiaz")
+    expect(page).to_not have_content("Cristian Roldan")
+  end
 end

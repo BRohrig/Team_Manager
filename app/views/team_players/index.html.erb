@@ -10,4 +10,5 @@
   <h4>US Citizen? <%= player.citizen %></h4>
   <h4>Eligible for Trade? <%= player.trade_eligible %></h4>
   <h4>Contract Length (Months): <%= player.contract_length_months %></h4><br/>
-<% end %>
+  <a href="/players/<%= player.id %>/edit">Edit <%= player.name %></a>
+  <% end %>
