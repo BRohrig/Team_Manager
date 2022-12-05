@@ -1,7 +1,7 @@
 <a href="/players">Player Index</a>
 <a href="/teams">Team Index</a>
 
-<a href="/teams/<%= @team.id %>/sort">Sort Players By Name</a>
+<%= link_to "Sort Players By Name", "/teams/#{@team.id}/players?sort=true" %>
 <a href="/teams/<%= @team.id %>/players/new">Create Player</a>
 <h1><%= @team.name %> Players:</h1>
 <% @players.each do |player| %>

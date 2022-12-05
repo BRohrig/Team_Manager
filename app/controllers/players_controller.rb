@@ -13,13 +13,7 @@ class PlayersController < ApplicationController
 
   def update
     player = Player.find(params[:id])
-    player.update({
-      name: params[:player][:name],
-      salary: params[:player][:salary],
-      citizen: params[:player][:citizen],
-      trade_eligible: params[:player][:trade_eligible],
-      contract_length_months: params[:player][:contract_length_months]
-    })
+    player.update(update_params)
     player.save
     redirect_to "/players/#{player.id}"
   end
@@ -32,5 +26,11 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
     @player.destroy
     redirect_to "/players"
+  end
+
+  private
+
+  def update_params
+    params.require(:player).permit(:name, :salary, :citizen, :trade_eligible, :contract_length_months)
   end
 end

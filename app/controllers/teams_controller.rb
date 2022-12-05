@@ -12,13 +12,7 @@ class TeamsController < ApplicationController
   end
 
   def create
-    team = Team.new({
-      name: params[:team][:name],
-      city: params[:team][:city],
-      owner: params[:team][:owner],
-      title_holder: params[:team][:title_holder],
-      titles_won: params[:team][:titles_won]
-    })
+    team = Team.new(team_params)
     team.save
     redirect_to '/teams'
   end
@@ -29,13 +23,7 @@ class TeamsController < ApplicationController
 
   def update
     team = Team.find(params[:id])
-    team.update({
-      name: params[:team][:name],
-      city: params[:team][:city],
-      owner: params[:team][:owner],
-      title_holder: params[:team][:title_holder],
-      titles_won: params[:team][:titles_won]
-    })
+    team.update(team_params)
     team.save
     redirect_to "/teams/#{team.id}"
   end
@@ -46,4 +34,9 @@ class TeamsController < ApplicationController
     redirect_to "/teams"
   end
 
+  private
+
+  def team_params
+    params.require(:team).permit(:name, :city, :owner, :title_holder, :titles_won)
+  end
 end
