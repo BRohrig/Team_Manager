@@ -1,7 +1,12 @@
 class TeamPlayersController < ApplicationController
+  
   def index
     @team = Team.find(params[:id])
-    @players = @team.players
+    if sort_params[:sort] == "true"
+      @players = @team.players.sort_name
+    else
+      @players = @team.players
+    end
   end
 
   def new
@@ -9,25 +14,19 @@ class TeamPlayersController < ApplicationController
   end
 
   def create_player
-    player = Player.new({
-      name: params[:player][:name],
-      salary: params[:player][:salary],
-      citizen: params[:player][:citizen],
-      trade_eligible: params[:player][:trade_eligible],
-      contract_length_months: params[:player][:contract_length_months],
-      team_id: params[:player][:team_id]
-    })
+    player = Player.new(create_params)
     player.save
 
     redirect_to "/teams/#{player.team_id}/players"
   end
 
-  def name_sort
-    @team = Team.find(params[:id])
-    extracted_team_id = @team.id
-    @players = Player.sort_name
+  private
 
-    render 'index'
+  def sort_params
+    params.permit(:sort)
   end
 
+  def create_params
+    params.require(:player).permit(:name, :salary, :citizen, :trade_eligible, :contract_length_months, :team_id)
+  end
 end
