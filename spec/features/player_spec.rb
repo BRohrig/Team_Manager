@@ -7,6 +7,7 @@ RSpec.describe 'the players pages' do
     @roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
   end
 
+  # user story 3
   it 'displays the player names' do
     visit "/players"
 
@@ -22,6 +23,7 @@ RSpec.describe 'the players pages' do
     expect(page).to have_content(@roldan.contract_length_months)
   end
 
+  # user story 4
   it 'displays the players info on their page' do
     visit "/players/#{@raul.id}"
 
@@ -34,6 +36,7 @@ RSpec.describe 'the players pages' do
     expect(page).to_not have_content(@roldan.salary)
   end
 
+  # user story 8
   it 'has a link to the player index' do
     visit "/players"
     expect(page).to have_link 'Player Index', href: "/players"
@@ -42,6 +45,7 @@ RSpec.describe 'the players pages' do
     expect(page).to have_link 'Player Index', href: "/players"
   end
 
+  # user story 9
   it 'has a link to the team index' do
     visit "/players"
     expect(page).to have_link 'Team Index', href: "/teams"
@@ -50,6 +54,7 @@ RSpec.describe 'the players pages' do
     expect(page).to have_link 'Team Index', href: "/teams"
   end
 
+  # user story 14
   it 'has a link to an update page which allows me to modify the player' do
     visit "/players/#{@raul.id}"
     expect(page).to have_link 'Update Player', href: "/players/#{@raul.id}/edit"
@@ -84,6 +89,7 @@ RSpec.describe 'the players pages' do
     expect(page).to_not have_content("Contract Length in Months: 39")
   end
 
+  # user story 15
   it 'has a link to only display players who are eligible for trade' do
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
     jimmy = rsl.players.create!(name: "Jimmy Jim", salary: 20, citizen: true, trade_eligible: true, contract_length_months: 14)
@@ -108,6 +114,7 @@ RSpec.describe 'the players pages' do
     expect(page).to have_content("Contract Length in Months: #{jimmy.contract_length_months}")
   end
 
+  # user story 18
   it 'has a link to edit the player' do
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
     jimmy = rsl.players.create!(name: "Jimmy Jim", salary: 20, citizen: true, trade_eligible: true, contract_length_months: 14)
@@ -125,6 +132,7 @@ RSpec.describe 'the players pages' do
     expect(current_path).to eq("/players/#{jimmy.id}/edit")
   end
 
+  # user story 20
   it 'has a link to delete a player on that players show page' do
     visit "/players/#{@roldan.id}"
     expect(page).to have_link("Delete Cristian Roldan")
@@ -142,6 +150,7 @@ RSpec.describe 'the players pages' do
     expect(page).to_not have_content("Cristian Roldan")
   end
 
+  # user story 23
   it 'has a link to delete each player on the player index page' do
     visit "/players"
     expect(page).to have_content(@roldan.name)
