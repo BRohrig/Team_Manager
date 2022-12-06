@@ -2,6 +2,13 @@
 <a href="/teams">Team Index</a>
 
 <%= link_to "Sort Players By Name", "/teams/#{@team.id}/players?sort=true" %>
+<form action="/teams/<%= @team.id %>/players?salary_filter" method="get">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>Find Players with Salaries Over Amount</p>
+  <input id="11" type='integer' name='salary_filter'/><br/>
+  <input type='submit' value="Submit"/>
+</form>
+<br/>
 <a href="/teams/<%= @team.id %>/players/new">Create Player</a>
 <h1><%= @team.name %> Players:</h1>
 <% @players.each do |player| %>
@@ -10,5 +17,6 @@
   <h4>US Citizen? <%= player.citizen %></h4>
   <h4>Eligible for Trade? <%= player.trade_eligible %></h4>
   <h4>Contract Length (Months): <%= player.contract_length_months %></h4><br/>
-  <a href="/players/<%= player.id %>/edit">Edit <%= player.name %></a>
-  <% end %>
+  <%= link_to "Edit #{player.name}", "/players/#{player.id}/edit", method: :patch %>
+<% end %>
+  

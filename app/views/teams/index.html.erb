@@ -3,10 +3,11 @@
 
 <h2>Teams</h2>
 
-<a href="/teams/new">Add New Team</a>
+<a href="/teams/new">Add New Team</a><br/><br/>
 
-<% @teams.created_order.each do |team| %>
-  <h3><%= team.name %></h3>
-  <h4>Entry Created: <%= team.created_at %></h4><br/>
+<% @teams.each do |team| %>
+  <h3><%= link_to "#{team.name}", "/teams/#{team.id}" %></h3>
+  <h4>Entry Created: <%= team.created_at %></h4>
   <a href="/teams/<%= team.id %>/edit">Edit <%= team.name %></a>
+  <%= link_to "Delete #{team.name}", "/teams?id=#{team.id}", method: :delete %><br/><br/>
 <% end %>

@@ -4,4 +4,8 @@ class Player < ApplicationRecord
   def self.sort_name
     self.order(:name)
   end
+
+  def self.salary_filter(filter_num)
+    self.where("salary > #{filter_num.to_i}") 
+  end
 end
