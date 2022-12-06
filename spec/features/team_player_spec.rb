@@ -6,6 +6,7 @@ RSpec.describe 'the index of players to teams' do
     @sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
   end
 
+  # user story 5
   it 'displays the players associated with a team' do
     raul = @sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
     visit "/teams/#{@sounders.id}/players"
@@ -17,6 +18,7 @@ RSpec.describe 'the index of players to teams' do
     expect(page).to have_content(raul.contract_length_months)
   end
 
+  # user story 13
   it 'has a link to create a new player for the team' do
     visit "/teams/#{@sounders.id}/players"
 
@@ -48,6 +50,7 @@ RSpec.describe 'the index of players to teams' do
     expect(page).to have_content("Contract Length (Months): 23")
   end
 
+  # user story 16
   it 'has link on the teams players index page to sort the players alphabetically by name' do
     raul = @sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
     roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
@@ -93,6 +96,7 @@ RSpec.describe 'the index of players to teams' do
     expect(current_path).to eq("/players/#{jimmy.id}/edit")
   end
 
+  # user story 21
   it 'has a form on the index page that allows a user to find players who make more than an input salary' do
     raul = @sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
     roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the teams index page' do
-
+  # user story 1
   it 'displays the team names' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     visit "/teams"
@@ -9,6 +9,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_content(sounders.name)
   end
 
+  # user story 2
   it 'displays the team name and attributes when i navigate to its ID page' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     
@@ -21,6 +22,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_content(sounders.titles_won)
   end
 
+  # user story 6
   it 'displays the team names by most recently created' do
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
@@ -29,7 +31,7 @@ RSpec.describe 'the teams index page' do
   
     expect(sounders.name).to appear_before(rsl.name)
   end
-
+  # user story 6
   it 'displays the created_at for each team' do
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1, created_at: DateTime.now-2.hours)
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
@@ -44,6 +46,7 @@ RSpec.describe 'the teams index page' do
     expect(rsl.name).to appear_before(rsl.created_at.to_s)
   end
 
+  # user story 7
   it 'displays the number of players associated with a team on the show page' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
@@ -53,6 +56,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_content("Players On Roster: 1")
   end
 
+  # user story 8
   it 'has a link to the players index at the top of every page' do
     visit "/teams"
 
@@ -65,6 +69,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_link 'Player Index', href: "/players"
   end
 
+  # user story 9
   it 'has a link to the team index' do
     visit "/teams"
     expect(page).to have_link 'Team Index', href: "/teams"
@@ -74,6 +79,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_link 'Team Index', href: "/teams"
   end
 
+  # user story 10
   it 'has a link on the team page to the that teams players' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
@@ -83,12 +89,14 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_link 'Player List', href: "/teams/#{sounders.id}/players"
   end
 
+  # user story 11
   it 'has a link on the team page that takes me to a page to create a new team' do
     visit "/teams"
 
     expect(page).to have_link 'Add New Team', href: "/teams/new"
   end
 
+  # user story 11
   it 'has a form to fill out to create a new team' do 
     visit "/teams/new"
 
@@ -105,6 +113,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to have_content(Time.now.utc)
   end
 
+  # user story 12
   it 'has a link to update the team on the team show page' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     visit "/teams/#{sounders.id}"
@@ -140,6 +149,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to_not have_content "Titles Won: 2"
   end
 
+  # user story 17
   it 'has links to each teams edit page on the index page' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
@@ -156,6 +166,7 @@ RSpec.describe 'the teams index page' do
     expect(current_path).to eq("/teams/#{rsl.id}/edit")
   end
 
+  # user story 19
   it 'has a delete button on the team show page that deletes it and all players associated' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
@@ -173,6 +184,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to_not have_content("#{roldan.name}")
   end
 
+  # user story 22
   it 'has a delete link next to each team on the index page' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
@@ -191,6 +203,7 @@ RSpec.describe 'the teams index page' do
     expect(page).to_not have_content(rsl.name)
   end
 
+  # extension 1
   it 'has a link to sort the teams by the number of players they have' do
     sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
     rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
