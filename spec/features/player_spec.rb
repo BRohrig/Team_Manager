@@ -141,4 +141,20 @@ RSpec.describe 'the players pages' do
     expect(page).to_not have_content("Raul Ruidiaz")
     expect(page).to_not have_content("Cristian Roldan")
   end
+
+  it 'has a link to delete each player on the player index page' do
+    visit "/players"
+    expect(page).to have_content(@roldan.name)
+    expect(page).to have_content(@raul.name)
+    expect(page).to have_link("Delete #{@roldan.name}")
+    expect(page).to have_link("Delete #{@raul.name}")
+
+    click_link "Delete #{@roldan.name}"
+    expect(current_path).to eq("/players")
+    expect(page).to_not have_content(@roldan.name)
+    expect(page).to have_content(@raul.name)
+    click_link "Delete #{@raul.name}"
+    expect(page).to_not have_content(@raul.name)
+
+  end
 end

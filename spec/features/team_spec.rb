@@ -173,4 +173,22 @@ RSpec.describe 'the teams index page' do
     expect(page).to_not have_content("#{roldan.name}")
   end
 
+  it 'has a delete link next to each team on the index page' do
+    sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
+    rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
+
+    visit "/teams"
+    expect(page).to have_content(sounders.name)
+    expect(page).to have_content(sounders.name)
+    expect(page).to have_link("Delete #{sounders.name}")
+    expect(page).to have_link("Delete #{rsl.name}")
+
+    click_link("Delete #{sounders.name}")
+    expect(current_path).to eq("/teams")
+    expect(page).to_not have_content(sounders.name)
+    expect(page).to have_content(rsl.name)
+    click_link("Delete #{rsl.name}")
+    expect(page).to_not have_content(rsl.name)
+  end
+
 end

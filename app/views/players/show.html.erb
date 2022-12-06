@@ -7,5 +7,5 @@
 <p>Eligible for Trade? <%= @player.trade_eligible %></p>
 <p>Contract Length in Months: <%= @player.contract_length_months %></p>
 
-<a href="/players/<%= @player.id %>/edit">Update Player</a>
-<a href="/players/<%= @player.id %>/delete">Delete <%= @player.name %></a>
+<%= link_to "Update Player", "/players/#{@player.id}/edit", method: :patch %>
+<%= link_to "Delete #{@player.name}", "/players?id=#{@player.id}", method: :delete %>

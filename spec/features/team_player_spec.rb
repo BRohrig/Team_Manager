@@ -98,7 +98,15 @@ RSpec.describe 'the index of players to teams' do
     roldan = @sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
 
     visit "/teams/#{@sounders.id}/players"
-
+    expect(page).to have_content("Find Players with Salaries Over Amount")
+    expect(page).to have_button("Submit")
+    
+    fill_in("11", with: 25000)
+   
+    click_button("Submit")
+    expect(current_path).to eq("/teams/#{@sounders.id}/players")
+    expect(page).to have_content(raul.name)
+    expect(page).to_not have_content(roldan.name)
 
   end
 

@@ -4,6 +4,8 @@ class TeamPlayersController < ApplicationController
     @team = Team.find(params[:id])
     if sort_params[:sort] == "true"
       @players = @team.players.sort_name
+    elsif salary_param[:salary_filter] != nil
+      @players = @team.players.salary_filter(salary_param[:salary_filter])
     else
       @players = @team.players
     end
@@ -28,5 +30,9 @@ class TeamPlayersController < ApplicationController
 
   def create_params
     params.require(:player).permit(:name, :salary, :citizen, :trade_eligible, :contract_length_months, :team_id)
+  end
+
+  def salary_param
+    params.permit(:salary_filter)
   end
 end

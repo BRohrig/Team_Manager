@@ -9,5 +9,7 @@
   <h4>US Citizen? <%= player.citizen %></h4>
   <h4>Eligible for Trade? <%= player.trade_eligible %></h4>
   <h4>Contract Length (Months): <%= player.contract_length_months %></h4><br/>
-  <a href="/players/<%= player.id %>/edit">Edit <%= player.name %></a>
+  
+  <%= link_to "Edit #{player.name}", "/players/#{player.id}/edit", method: :patch %>
+  <%= link_to "Delete #{player.name}", "/players?id=#{player.id}", method: :delete %>
 <% end %>
