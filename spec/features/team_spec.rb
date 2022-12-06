@@ -191,4 +191,27 @@ RSpec.describe 'the teams index page' do
     expect(page).to_not have_content(rsl.name)
   end
 
+  it 'has a link to sort the teams by the number of players they have' do
+    sounders = Team.create!(name: "Sounders FC", city: "Seattle", owner: "Adrian Hanauer", title_holder: false, titles_won: 2)
+    rsl = Team.create!(name: "Real Salt Lake", city: "Salt Lake City", owner: "some guy", title_holder: false, titles_won: 1)
+    dallas = Team.create!(name: "FC Dallas", city: "Dallas", owner: "some other guy", title_holder: false, titles_won: 0)
+    raul = sounders.players.create!(name: "Raul Ruidiaz", salary: 3000000, citizen: false, trade_eligible: false, contract_length_months: 39)
+    roldan = sounders.players.create!(name: "Cristian Roldan", salary: 24500, citizen: true, trade_eligible: true, contract_length_months: 27)
+    bob = rsl.players.create!(name: "Bobby bob", salary: 300, citizen: false, trade_eligible: false, contract_length_months: 15)
+    tom = rsl.players.create!(name: "Tommy tom", salary: 2400, citizen: true, trade_eligible: true, contract_length_months: 23)
+    jim = rsl.players.create!(name: "jimmy jim", salary: 30000, citizen: false, trade_eligible: false, contract_length_months: 34)
+    will = dallas.players.create!(name: "willy will", salary: 23500, citizen: true, trade_eligible: true, contract_length_months: 21)
+    
+    visit "/teams"
+    expect(page).to have_link("Sort By Number of Players on Roster")
+    click_link("Sort By Number of Players on Roster")
+
+    expect(current_path).to eq("/teams")
+    expect("#{rsl.name}").to appear_before("Number of Players: #{rsl.player_count}")
+    expect("Number of Players: #{rsl.player_count}").to appear_before("#{sounders.name}")
+    expect("#{sounders.name}").to appear_before("Number of Players: #{sounders.player_count}")
+    expect("Number of Players: #{sounders.player_count}").to appear_before("#{dallas.name}")
+    expect("#{dallas.name}").to appear_before("Number of Players: #{dallas.player_count}")
+  end
+
 end

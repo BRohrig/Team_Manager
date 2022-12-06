@@ -1,13 +1,10 @@
-<a href="/players">Player Index</a>
-<a href="/teams">Team Index</a>
-
 <h2>Teams</h2>
 
-<a href="/teams/new">Add New Team</a><br/><br/>
-
+<%= link_to "Add New Team", "/teams/new" %><br/><br/>
+<%= link_to "Sort By Number of Players on Roster", "/teams?player_count=sort" %>
 <% @teams.each do |team| %>
-  <h3><%= link_to "#{team.name}", "/teams/#{team.id}" %></h3>
+  <h3><%= link_to "#{team.name}", "/teams/#{team.id}" %></h3><h3>Number of Players: <%= team.players.count %></h3>
   <h4>Entry Created: <%= team.created_at %></h4>
-  <a href="/teams/<%= team.id %>/edit">Edit <%= team.name %></a>
+  <%= link_to "Edit #{team.name}", "/teams/#{team.id}/edit" %>
   <%= link_to "Delete #{team.name}", "/teams?id=#{team.id}", method: :delete %><br/><br/>
 <% end %>

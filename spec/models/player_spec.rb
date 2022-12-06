@@ -16,7 +16,4 @@ RSpec.describe Player do
 
     expect(Player.all.salary_filter(25000)).to eq([raul])
   end
-
-
-
 end

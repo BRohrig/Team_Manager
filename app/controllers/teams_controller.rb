@@ -1,6 +1,10 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all.created_order
+    if player_count_sort[:player_count] == "sort"
+      @teams = team_sort
+    else
+      @teams = Team.all.created_order
+    end
   end
 
   def show
@@ -38,5 +42,15 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit(:name, :city, :owner, :title_holder, :titles_won)
+  end
+
+  def player_count_sort
+    params.permit(:player_count)
+  end
+
+  def team_sort
+    Team.all.sort_by do |team|
+      team.player_count
+    end.reverse
   end
 end

@@ -1,13 +1,9 @@
-<a href="/players">Player Index</a>
-<a href="/teams">Team Index</a>
-
 <h2><%= @team.name %></h2>
 <p>City: <%= @team.city %></p>
 <p>Owner: <%= @team.owner %></p>
 <p>Does Team Hold Title? <%= @team.title_holder %></p>
 <p>Titles Won: <%= @team.titles_won %></p>
 <p>Players On Roster: <%= @player_count %></p>
-<a href="/teams/<%= @team.id %>/players">Player List</a>
-
-<a href="/teams/<%= @team.id %>/edit">Update Team</a>
-<a href="/teams/<%= @team.id %>/delete">Delete <%= @team.name %></a>
+<%= link_to "Player List", "/teams/#{@team.id}/players" %>
+<%= link_to "Update Team", "/teams/#{@team.id}/edit" %>
+<%= link_to "Delete #{@team.name}", "/teams/#{@team.id}/delete" %>
