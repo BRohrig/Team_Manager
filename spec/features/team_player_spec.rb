@@ -58,7 +58,7 @@ RSpec.describe 'the index of players to teams' do
     expect(raul.name).to appear_before(roldan.name)
     expect(page).to have_link "Sort Players By Name"
     click_link "Sort Players By Name"
-    # save_and_open_page
+   
     expect(current_path).to eq("/teams/#{@sounders.id}/players")
     expect(page).to_not have_content("#{jimmy.name}")
     expect(roldan.name).to appear_before("Salary: #{roldan.salary}")
@@ -107,7 +107,5 @@ RSpec.describe 'the index of players to teams' do
     expect(current_path).to eq("/teams/#{@sounders.id}/players")
     expect(page).to have_content(raul.name)
     expect(page).to_not have_content(roldan.name)
-
   end
-
 end
