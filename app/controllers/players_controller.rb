@@ -1,6 +1,12 @@
 class PlayersController < ApplicationController
   def index
-    @players = Player.all
+    if eligible_param[:eligible] == "true"
+      @players = Player.eligible_sort
+      @header = "Players Eligible for Trade:"
+    else
+      @players = Player.all
+      @header = "Players"
+    end
   end
 
   def show
@@ -18,10 +24,6 @@ class PlayersController < ApplicationController
     redirect_to "/players/#{player.id}"
   end
 
-  def eligible
-    @players = Player.eligible_sort
-  end
-
   def destroy
     @player = Player.find(params[:id])
     @player.destroy
@@ -32,5 +34,9 @@ class PlayersController < ApplicationController
 
   def update_params
     params.require(:player).permit(:name, :salary, :citizen, :trade_eligible, :contract_length_months)
+  end
+
+  def eligible_param
+    params.permit(:eligible)
   end
 end
