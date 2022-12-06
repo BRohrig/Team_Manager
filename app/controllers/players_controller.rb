@@ -19,7 +19,7 @@ class PlayersController < ApplicationController
   end
 
   def eligible
-    @players = Player.where(trade_eligible: true)
+    @players = Player.eligible_sort
   end
 
   def destroy
