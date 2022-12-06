@@ -90,7 +90,7 @@ RSpec.describe 'the players pages' do
     bob = rsl.players.create!(name: "bobby bob", salary: 42, citizen: false, trade_eligible: false, contract_length_months: 4)
 
     visit "/players"
-    expect(page).to have_link "Trade Eligible Players", href: "/players/eligible"
+    expect(page).to have_link "Trade Eligible Players"
     click_link "Trade Eligible Players"
   
     expect(page).to have_content("Players Eligible for Trade:")
@@ -98,13 +98,13 @@ RSpec.describe 'the players pages' do
     expect(page).to have_content("Team ID: #{@sounders.id}")
     expect(page).to have_content("Salary: $#{@roldan.salary}")
     expect(page).to have_content("US Citizen? #{@roldan.citizen}")
-    expect(page).to have_content("Trade Eligible? #{@roldan.trade_eligible}")
+    expect(page).to have_content("Eligible for Trade? #{@roldan.trade_eligible}")
     expect(page).to have_content("Contract Length in Months: #{@roldan.contract_length_months}")
     expect(page).to have_content(jimmy.name)
     expect(page).to have_content("Team ID: #{rsl.id}")
     expect(page).to have_content("Salary: $#{jimmy.salary}")
     expect(page).to have_content("US Citizen? #{jimmy.citizen}")
-    expect(page).to have_content("Trade Eligible? #{jimmy.trade_eligible}")
+    expect(page).to have_content("Eligible for Trade? #{jimmy.trade_eligible}")
     expect(page).to have_content("Contract Length in Months: #{jimmy.contract_length_months}")
   end
 

@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-12-06T10:15:57-08:00">2022-12-06T10:15:57-08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-12-06T13:10:26-08:00">2022-12-06T13:10:26-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.04
+         1.05
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>89</b> relevant lines,
-    <span class="green"><b>89</b> lines covered</span> and
+    <b>88</b> relevant lines,
+    <span class="green"><b>88</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -260,9 +260,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#5b147aa4e2aed68fa25667d0948d9878a9aabffd" class="src_link" title="config/routes.rb">config/routes.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">22</td>
-            <td class="cell--number">20</td>
-            <td class="cell--number">20</td>
+            <td class="cell--number">21</td>
+            <td class="cell--number">19</td>
+            <td class="cell--number">19</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -3213,8 +3213,8 @@
     
 
     <div class="t-line-summary">
-      <b>20</b> relevant lines.
-      <span class="green"><b>20</b> lines covered</span> and
+      <b>19</b> relevant lines.
+      <span class="green"><b>19</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -3353,7 +3353,7 @@
 
             
 
-            <code class="ruby">  get &quot;players/eligible&quot;, to: &#39;players#eligible&#39;</code>
+            <code class="ruby">  get &quot;/players/:id&quot;, to: &#39;players#show&#39;</code>
           </li>
         </div>
       
@@ -3364,7 +3364,7 @@
 
             
 
-            <code class="ruby">  get &quot;/players/:id&quot;, to: &#39;players#show&#39;</code>
+            <code class="ruby">  get &quot;/teams/:id/edit&quot;, to: &#39;teams#edit&#39;</code>
           </li>
         </div>
       
@@ -3375,7 +3375,7 @@
 
             
 
-            <code class="ruby">  get &quot;/teams/:id/edit&quot;, to: &#39;teams#edit&#39;</code>
+            <code class="ruby">  patch &quot;/teams/:id&quot;, to: &#39;teams#update&#39;</code>
           </li>
         </div>
       
@@ -3386,7 +3386,7 @@
 
             
 
-            <code class="ruby">  patch &quot;/teams/:id&quot;, to: &#39;teams#update&#39;</code>
+            <code class="ruby">  patch &quot;/players/:id/edit&quot;, to: &#39;players#edit&#39;</code>
           </li>
         </div>
       
@@ -3397,7 +3397,7 @@
 
             
 
-            <code class="ruby">  patch &quot;/players/:id/edit&quot;, to: &#39;players#edit&#39;</code>
+            <code class="ruby">  patch &quot;/players/:id&quot;, to: &#39;players#update&#39;</code>
           </li>
         </div>
       
@@ -3408,7 +3408,7 @@
 
             
 
-            <code class="ruby">  patch &quot;/players/:id&quot;, to: &#39;players#update&#39;</code>
+            <code class="ruby">  get &quot;/teams/:id/delete&quot;, to: &#39;teams#destroy&#39;</code>
           </li>
         </div>
       
@@ -3419,7 +3419,7 @@
 
             
 
-            <code class="ruby">  get &quot;/teams/:id/delete&quot;, to: &#39;teams#destroy&#39;</code>
+            <code class="ruby">  get &quot;/players/:id/delete&quot;, to: &#39;players#destroy&#39;</code>
           </li>
         </div>
       
@@ -3430,7 +3430,7 @@
 
             
 
-            <code class="ruby">  get &quot;/players/:id/delete&quot;, to: &#39;players#destroy&#39;</code>
+            <code class="ruby">  get &quot;/teams/:id/players/new&quot;, to: &#39;team_players#new&#39;</code>
           </li>
         </div>
       
@@ -3441,23 +3441,12 @@
 
             
 
-            <code class="ruby">  get &quot;/teams/:id/players/new&quot;, to: &#39;team_players#new&#39;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="21">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">  post &quot;/teams/:id/players&quot;, to: &#39;team_players#create_player&#39;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="22">
+          <li class="never" data-hits="" data-linenumber="21">
             
             
 
